@@ -10,3 +10,14 @@ export interface IProduct {
     count: number;
   };
 }
+
+export interface IJob {
+  id: number;
+  title: string;
+  name: string;
+  description: string;
+  updatedAt: string;
+  location: { lat: number; long: number };
+  pictures: string[];
+  address: string;
+}
