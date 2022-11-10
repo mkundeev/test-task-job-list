@@ -12,7 +12,7 @@ export interface IProduct {
 }
 
 export interface IJob {
-  id: number;
+  id: string;
   title: string;
   name: string;
   description: string;
@@ -20,4 +20,9 @@ export interface IJob {
   location: { lat: number; long: number };
   pictures: string[];
   address: string;
+  salary: string;
+  benefits: string[];
+  employment_type: string[];
+  email: string;
+  phone: string;
 }

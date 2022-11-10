@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { IJob } from "../../models";
 import JobListItem from "../JobListItem";
+import { fetchAllJobs } from "../../serviceApi/fetchApi";
 
-const URL =
-  "https://api.json-generator.com/templates/ZM1r0eic3XEy/data?access_token=wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu";
 export default function JobList() {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [loading, setLoading] = useState(true);
 
   async function fetchJobs() {
     try {
-      const { data } = await axios(URL);
+      const data = await fetchAllJobs();
       setJobs(data);
       setLoading(false);
     } catch (err: unknown) {
@@ -24,11 +23,11 @@ export default function JobList() {
   useEffect(() => {
     fetchJobs();
   }, []);
-  console.log(jobs);
+
   return (
-    <div className="mx-auto container max-w-2xl pt-5">
+    <div className="mx-auto w-96 bg-bgPrime px-2 py-2">
       {!loading ? (
-        <ul>
+        <ul className="mx-auto container">
           {jobs.map((job) => (
             <li key={job.id}>
               <JobListItem job={job} />
