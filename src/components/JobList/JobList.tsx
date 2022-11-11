@@ -25,10 +25,10 @@ export default function JobList() {
   }, []);
 
   return (
-    <div className="mx-auto w-96 bg-bgPrime px-2 py-2">
+    <div className="bg-bgPrime">
       {!loading ? (
-        <ul className="mx-auto container">
-          {jobs.map((job) => (
+        <ul className="mx-auto container max-w-[414px] px-2 py-2 sm:max-w-[1400px]">
+          {jobs?.map((job) => (
             <li key={job.id}>
               <JobListItem job={job} />
             </li>

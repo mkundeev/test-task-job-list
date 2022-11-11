@@ -16,7 +16,7 @@ export interface IJob {
   title: string;
   name: string;
   description: string;
-  updatedAt: string;
+  createdAt: string;
   location: { lat: number; long: number };
   pictures: string[];
   address: string;
@@ -25,4 +25,8 @@ export interface IJob {
   employment_type: string[];
   email: string;
   phone: string;
+}
+
+export interface IStyles {
+  styles: string;
 }
