@@ -11,6 +11,9 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 interface IProps {
   itemsNumber: number;
 }
+interface IEvent {
+  selected: number;
+}
 export default function JobList({ itemsNumber }: IProps) {
   const { setError } = useContext(ErrorContext);
   const [jobs, setJobs] = useState<IJob[]>([]);
@@ -21,7 +24,7 @@ export default function JobList({ itemsNumber }: IProps) {
   const currentItems = jobs?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(jobs?.length / itemsNumber);
 
-  const handlePageClick = (event: any) => {
+  const handlePageClick = (event: IEvent) => {
     const newOffset = (event.selected * itemsNumber) % jobs.length;
     setItemOffset(newOffset);
   };
