@@ -20,7 +20,7 @@ export default function JobListItem({ job }: JobProps) {
         <img
           src={job.pictures[0]}
           alt={job.name}
-          className="w-16 h-16 rounded-full shrink-0 mt-10 sm:w-[85px] sm:h-[85px] sm:mt-0"
+          className="w-16 h-16 rounded-full shrink-0 mt-10 object-cover sm:w-[85px] sm:h-[85px] sm:mt-0"
         />
         <div className="ml-4 text-lg text-textColorSecondary sm:ml-6 sm:max-w-[760px]">
           <div className="flex justify-between text-sm mb-3.5 items-center sm:hidden">

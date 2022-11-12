@@ -47,7 +47,7 @@ export default function JobDetails() {
   return (
     <>
       {!loading ? (
-        <div className=" mx-auto min-w-[320px] max-w-[414px] px-3.5 py-6 text-textDetailPage/[.82] text-lg sm:flex sm:max-w-[1418px] sm:pl-[85px]">
+        <div className=" mx-auto max-w-[414px] px-3.5 py-6 text-textDetailPage/[.82] text-lg sm:flex sm:max-w-[1418px] sm:pl-[85px]">
           <div className="sm:max-w-[774px]">
             <div className="mb-3 flex justify-between items-center">
               <h2 className="text-3xl font-bold text-textColorDGrey">
