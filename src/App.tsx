@@ -5,7 +5,7 @@ import JobDetails from "./components/JobDetails";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<JobList />} />
+      <Route path="/" element={<JobList itemsNumber={5} />} />
       <Route path="/:jobId" element={<JobDetails />} />
     </Routes>
   );

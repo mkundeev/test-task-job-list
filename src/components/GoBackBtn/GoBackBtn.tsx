@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { MdArrowBackIos } from "react-icons/md";
 import { IStyles } from "../../models";
@@ -13,7 +12,9 @@ export default function GoBackBtn({ styles }: IStyles) {
       }
     >
       <MdArrowBackIos />
-      <p className="ml-4">Return to job board</p>
+      <p className="ml-4 text-xs uppercase font-semibold">
+        Return to job board
+      </p>
     </Link>
   );
 }

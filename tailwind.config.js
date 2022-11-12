@@ -1,6 +1,5 @@
 const colors = require("tailwindcss/colors");
 
-
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -14,7 +13,6 @@ module.exports = {
         amber: colors.amber,
         white: colors.white,
       },
-     
     },
     colors: {
       bgGrey: "#EFF0F5",

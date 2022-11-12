@@ -1,3 +1,8 @@
+import { Dimmer, Loader as LoaderUi } from "semantic-ui-react";
 export default function Loader() {
-  return <p>Is loading ....</p>;
+  return (
+    <Dimmer active inverted>
+      <LoaderUi size="large">Loading</LoaderUi>
+    </Dimmer>
+  );
 }

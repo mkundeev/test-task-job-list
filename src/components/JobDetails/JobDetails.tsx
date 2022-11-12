@@ -5,6 +5,7 @@ import { IJob } from "../../models";
 import Contacts from "../Contacts";
 import SaveShare from "../SaveShare";
 import GoBackBtn from "../GoBackBtn";
+import Loader from "../Loader/Loader";
 import { dateFormater } from "../../services/dateFormater";
 
 export default function JobDetails() {
@@ -55,7 +56,7 @@ export default function JobDetails() {
             </div>
             <button
               type="button"
-              className="hidden mt-11 w-32 h-12 rounded-lg bg-bgBtn text-white hover:shadow-lg sm:block"
+              className="hidden mt-11 w-32 h-12 rounded-lg bg-bgBtn text-white text-xs hover:shadow-lg sm:block"
             >
               Apply now
             </button>
@@ -64,10 +65,10 @@ export default function JobDetails() {
                 {job?.title}
               </p>
               <div className="hidden sm:block sm:min-w-[161px] sm:ml-4">
-                <p className="text-2xl font-bold text-textColorDGrey min-w-[203px]">
+                <p className="text-2xl font-bold text-textColorDGrey min-w-[203px] sm:text-xl">
                   {"\u20AC " + salary}
                 </p>
-                <p>Brutto per year</p>
+                <p className="sm:text-lg">Brutto per year</p>
               </div>
             </div>
 
@@ -75,17 +76,17 @@ export default function JobDetails() {
               <p className=" text-sm">{date}</p>
               <div className="sm:hidden">
                 <p>Brutto per year</p>
-                <p className="text-2xl font-bold text-textColorDGrey">
+                <p className="text-2xl font-bold text-textColorDGrey ">
                   {"\u20AC " + salary}
                 </p>
               </div>
             </div>
             <p className="mt-4">{job?.description}</p>
-            <h3 className="mt-11 text-xl font-bold text-textColorDGrey">
+            <h3 className="mt-11 mb-2 text-xl font-bold text-textColorDGrey">
               Responsibilities
             </h3>
             <p>{job?.description}</p>
-            <h3 className="mt-11 text-xl font-bold text-textColorDGrey">
+            <h3 className="mt-11 mb-2 text-xl font-bold text-textColorDGrey">
               Compensations&Benefits
             </h3>
             <ul className="list-square list-inside sm:list-outside">
@@ -96,60 +97,66 @@ export default function JobDetails() {
             <div className="flex justify-center sm:justify-start">
               <button
                 type="button"
-                className="mt-11 w-32 h-12 rounded-lg bg-bgBtn text-white hover:shadow-lg "
+                className="mt-11 w-32 h-12 rounded-lg bg-bgBtn text-white text-xs hover:shadow-lg "
               >
                 Apply now
               </button>
             </div>
+            <div className="mt-[135px] sm:flex sm:flex-col-reverse sm:mt-[86px]">
+              <div className="mt-0 sm:mt-[87px]">
+                <h2 className="text-3xl font-bold text-textColorDGrey">
+                  Attached images
+                </h2>
+                <p className="border-b-textColorSecondary border-b opacity-25 mt-2.5"></p>
+                <ul className="mt-5 flex gap-2.5 flex-wrap">
+                  {job?.pictures.map((picture, index) => (
+                    <li
+                      key={index}
+                      className="w-[calc(50%_-_0.625rem)] sm:w-[209px]"
+                    >
+                      <img
+                        src={picture}
+                        alt={picture + index}
+                        className="rounded-lg w-full h-28 object-cover"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-[63px] sm:mt-0">
+                <h2 className="text-3xl font-bold text-textColorDGrey">
+                  Additional Info
+                </h2>
+                <p className="border-b-textColorSecondary border-b opacity-25 mt-2.5"></p>
+                <p className="mt-4"> Empoyment type</p>
+                <ul className="mt-2.5 flex gap-2">
+                  {job?.employment_type.map((employment) => (
+                    <li
+                      key={employment}
+                      className="rounded-lg border border-slate-500 p-4 bg-slate-300 sm:w-[220px]"
+                    >
+                      <p className="text-slate-500 font-bold text-base text-center">
+                        {employment}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5">Benefits</p>
+                <ul className="mt-2.5 flex gap-2">
+                  {job?.benefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="rounded-lg border border-amber-300 p-4 bg-amber-100 sm:w-[220px]"
+                    >
+                      <p className="text-amber-600 font-bold text-base text-center">
+                        {benefit}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
-            <h2 className="mt-32 text-3xl font-bold text-textColorDGrey">
-              Attached images
-            </h2>
-            <p className="border-b-textColorSecondary border-b opacity-25 mt-2.5"></p>
-            <ul className="mt-5 flex gap-2.5 flex-wrap">
-              {job?.pictures.map((picture, index) => (
-                <li
-                  key={index}
-                  className="w-[calc(50%_-_0.625rem)] sm:w-[209px]"
-                >
-                  <img
-                    src={picture}
-                    alt={picture + index}
-                    className="rounded-lg w-full h-28 object-cover"
-                  />
-                </li>
-              ))}
-            </ul>
-            <h2 className="mt-16 text-3xl font-bold text-textColorDGrey">
-              Additional Info
-            </h2>
-            <p className="border-b-textColorSecondary border-b opacity-25 mt-2.5"></p>
-            <p className="mt-4"> Empoyment type</p>
-            <ul className="mt-2.5 flex gap-2">
-              {job?.employment_type.map((employment) => (
-                <li
-                  key={employment}
-                  className="rounded-lg border border-slate-500 p-4 bg-slate-300 sm:w-[220px]"
-                >
-                  <p className="text-slate-500 font-bold text-base text-center">
-                    {employment}
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-5">Benefits</p>
-            <ul className="mt-2.5 flex gap-2">
-              {job?.benefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className="rounded-lg border border-amber-300 p-4 bg-amber-100 sm:w-[220px]"
-                >
-                  <p className="text-amber-600 font-bold text-base text-center">
-                    {benefit}
-                  </p>
-                </li>
-              ))}
-            </ul>
             <h2 className="mt-14 text-3xl font-bold text-textColorDGrey sm:hidden">
               Contacts
             </h2>
@@ -163,7 +170,7 @@ export default function JobDetails() {
           )}
         </div>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </>
   );
