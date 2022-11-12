@@ -14,7 +14,7 @@ export default function JobListItem({ job }: JobProps) {
   return (
     <Link
       to={`/${job.id}`}
-      className="py-3 px-4 rounded mb-4 flex bg-bgGrey shadow sm:bg-white sm:py-6 sm:justify-between"
+      className="py-3 px-4  mb-4 flex rounded shadow bg-bgGrey hover:bg-white sm:hover:bg-bgGrey sm:bg-white sm:py-6 sm:justify-between "
     >
       <div className="flex">
         <img

@@ -1,18 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSinglJob } from "../../serviceApi/fetchApi";
 import { IJob } from "../../models";
+import { AxiosError } from "axios";
 import Contacts from "../Contacts";
 import SaveShare from "../SaveShare";
 import GoBackBtn from "../GoBackBtn";
-import Loader from "../Loader/Loader";
+import { ErrorContext } from "../../context/ErrorContext";
 import { dateFormater } from "../../services/dateFormater";
+import Loader from "../Loader/Loader";
 
 export default function JobDetails() {
-  const [loading, setLoading] = useState(true);
   const [job, setJob] = useState<IJob>();
-  const [date, setDate] = useState<string>("");
-  const [salary, setSalary] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState("");
+  const [salary, setSalary] = useState("");
+  const { setError } = useContext(ErrorContext);
 
   const { jobId } = useParams<{ jobId: string }>();
 
@@ -22,6 +25,7 @@ export default function JobDetails() {
         return;
       }
       try {
+        setLoading(true);
         const job = await fetchSinglJob(jobId);
         setJob(job);
         setLoading(false);
@@ -31,17 +35,19 @@ export default function JobDetails() {
         if (job?.salary) {
           setSalary(job.salary.replace(/k/g, " 000"));
         }
-      } catch (error) {
+      } catch (err: unknown) {
+        const error = err as AxiosError;
+        setError(error.message);
         setLoading(false);
       }
     }
     fetchJob();
-  }, [jobId]);
+  }, [jobId, setError]);
 
   return (
     <>
       {!loading ? (
-        <div className=" mx-auto min-w-[320px] max-w-[414px] px-3.5 py-6 text-textDetailPage/[.82] text-lg sm:flex sm:max-w-[1418px] sm:pl-20">
+        <div className=" mx-auto min-w-[320px] max-w-[414px] px-3.5 py-6 text-textDetailPage/[.82] text-lg sm:flex sm:max-w-[1418px] sm:pl-[85px]">
           <div className="sm:max-w-[774px]">
             <div className="mb-3 flex justify-between items-center">
               <h2 className="text-3xl font-bold text-textColorDGrey">

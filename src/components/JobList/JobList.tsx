@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AxiosError } from "axios";
 import { IJob } from "../../models";
 import JobListItem from "../JobListItem";
 import Loader from "../Loader/Loader";
+import { ErrorContext } from "../../context/ErrorContext";
 import { fetchAllJobs } from "../../serviceApi/fetchApi";
 import ReactPaginate from "react-paginate";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
@@ -11,8 +12,9 @@ interface IProps {
   itemsNumber: number;
 }
 export default function JobList({ itemsNumber }: IProps) {
+  const { setError } = useContext(ErrorContext);
   const [jobs, setJobs] = useState<IJob[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsNumber;
@@ -21,25 +23,24 @@ export default function JobList({ itemsNumber }: IProps) {
 
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsNumber) % jobs.length;
-
     setItemOffset(newOffset);
   };
 
-  async function fetchJobs() {
-    try {
-      const data = await fetchAllJobs();
-      setJobs(data);
-      setLoading(false);
-    } catch (err: unknown) {
-      const error = err as AxiosError;
-      console.log(error);
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function fetchJobs() {
+      try {
+        setLoading(true);
+        const data = await fetchAllJobs();
+        setJobs(data);
+        setLoading(false);
+      } catch (err: unknown) {
+        const error = err as AxiosError;
+        setError(error.message);
+        setLoading(false);
+      }
+    }
     fetchJobs();
-  }, []);
+  }, [setError]);
 
   return (
     <div className="bg-bgPrime">
